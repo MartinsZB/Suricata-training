@@ -1,0 +1,6 @@
+alert tls any any -> any any (msg:"MZ: Facebook certificate detected"; tls.subject:"facebook"; sid:770001; rev:1;)
+alert tcp any any -> any any (msg:"MZ: DNS Zone Transfer detected"; content:"|00 00 FC|"; sid:770002; rev:1;)
+alert dns $HOME_NET any -> any 53 (msg:"MZ: DNS request for .su detected"; dns_query; content:".su"; sid:770003; rev:1;)
+alert http any any -> any any (msg:"MZ: User agent Curl detected"; content:"curl"; http_user_agent; sid:770004; rev:1;)
+#alert tcp any any -> any any (msg:"testing"; classtype:bad-unknown; sid:990001; rev:1;)
+
