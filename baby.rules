@@ -4,3 +4,8 @@ alert dns $HOME_NET any -> any 53 (msg:"MZ: DNS request for .su detected"; dns_q
 alert http any any -> any any (msg:"MZ: User agent Curl detected"; content:"curl"; http_user_agent; sid:770004; rev:1;)
 #alert tcp any any -> any any (msg:"testing"; classtype:bad-unknown; sid:990001; rev:1;)
 
+
+sudo tcpdump -i eth0 -w /vagrant/data/test.pcap
+curl -s https://www.facebook.lv
+curl test.su
+tcprewrite -C -i /vagrant/data/test.pcap -o /vagrant/data/test-out.pcap
