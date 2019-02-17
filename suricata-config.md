@@ -7,3 +7,7 @@ af-packet:
     defrag: yes
     
     RULES
+
+Testing suricata -T
+
+make a noise (facebook)
