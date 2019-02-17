@@ -5,6 +5,8 @@ alert http any any -> any any (msg:"MZ: User agent Curl detected"; content:"curl
 #alert tcp any any -> any any (msg:"testing"; classtype:bad-unknown; sid:990001; rev:1;)
 
 suricata --list-keywords | grep tls
+cat eve.json | jq 'select(.app_proto=="dns")'
+https://suricata.readthedocs.io/en/suricata-4.0.5/output/eve/eve-json-examplesjq.html
 
 sudo tcpdump -i eth0 -w /vagrant/data/test.pcap
 curl -s https://www.facebook.lv
