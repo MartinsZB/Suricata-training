@@ -1,0 +1,6 @@
+CONFIG
+
+unix-command:
+  enabled: yes
+  
+  
