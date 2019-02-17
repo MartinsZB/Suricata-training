@@ -1,17 +1,5 @@
-Some late night training stuff...
+<b>Plāniņš</b></br>
+</br>
+1. <a href="https://github.com/MartinsZB/Suricata-training/blob/master/vagrant.md">Vagrant instalācija</a></br>
+2. <a href="https://github.com/MartinsZB/Suricata-training/blob/master/docker.md">Īsi par Docker</a></br>
 
-Install vagrant
-
-<code>
-VAGRANT='2.2.3' 
-WGET_OPTS='-q -4'
-wget $WGET_OPTS https://releases.hashicorp.com/vagrant/$VAGRANT/vagrant_$(VAGRANT)_x86_64.deb 
-dpkg -i vagrant_$(VAGRANT)_x86_64.deb
-</code>
-
-
-
-
-Install vagrant guest plugin
-
-<code>vagrant plugin install vagrant-vbguest<code/>
