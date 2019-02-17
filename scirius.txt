@@ -15,4 +15,5 @@ rule-files:
  - custom.rules
  - scirius.rules
 
+sudo /home/vagrant/suricata/basic/bin/suricatasc /var/run/suricata/suricata.socket -c "reload-rules"
 
