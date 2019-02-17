@@ -1,2 +1,32 @@
 
 docker run -itd --name redis -h redis --network host --restart unless-stopped --user 1000 -v /vagrant/data/redis:/data --log-driver syslog --log-opt tag="redis" redis
+
+docker exec -ti redis redis-cli
+
+# Extensible Event Format (nicknamed EVE) event log in JSON format
+  - eve-log:
+      enabled: yes
+      filetype: redis #regular|syslog|unix_dgram|unix_stream|redis
+      filename: eve.json
+      #prefix: "@cee: " # prefix to prepend to each log entry
+      # the following are valid when type: syslog above
+      #identity: "suricata"
+      #facility: local5
+      #level: Info ## possible levels: Emergency, Alert, Critical,
+                   ## Error, Warning, Notice, Info, Debug
+      redis:
+        server: 127.0.0.1
+        port: 6379
+        async: true ## if redis replies are read asynchronously
+        mode: list ## possible values: list|lpush (default), rpush, channel|publish
+      #             ## lpush and rpush are using a Redis list. "list" is an alias for lpush
+      #             ## publish is using a Redis channel. "channel" is an alias for publish
+        key: martins-suricata ## key or channel to use (default to suricata)
+      # Redis pipelining set up. This will enable to only do a query every
+      # 'batch-size' events. This should lower the latency induced by network
+      # connection at the cost of some memory. There is no flushing implemented
+      # so this setting as to be reserved to high traffic suricata.
+        pipelining:
+          enabled: yes ## set enable to yes to enable query pipelining
+          batch-size: 10 ## number of entry to keep in buffer
+
