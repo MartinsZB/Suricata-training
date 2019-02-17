@@ -1,6 +1,8 @@
 CONFIG
 
 unix-command:
-  enabled: yes
+  enabled: auto
+  filename: /var/run/suricata/suricata.socket  
   
   
+  sudo /home/vagrant/suricata/basic/bin/suricatasc /var/run/suricata/suricata.socket
