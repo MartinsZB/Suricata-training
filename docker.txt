@@ -1,0 +1,7 @@
+docker ps
+docker exec -ti [NAME] [COMMAND]
+docker stop [NAME]
+docker rm [NAME]
+
+docker run -itd --name evebox -h evebox --network host jasonish/evebox -e http://192.168.10.11:9200 -i suricata
+
