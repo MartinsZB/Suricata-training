@@ -30,3 +30,10 @@ docker exec -ti redis redis-cli
           enabled: yes ## set enable to yes to enable query pipelining
           batch-size: 10 ## number of entry to keep in buffer
 
+
+sudo /home/vagrant/suricata/basic/bin/suricatasc /var/run/suricata/suricata.socket -c "shutdown"
+sudo /home/vagrant/suricata/basic/bin/suricata --af-packet -D
+
+docker exec -ti redis redis-cli
+KEYS *
+
