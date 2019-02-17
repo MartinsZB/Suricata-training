@@ -32,5 +32,5 @@ docker run -dit --name logstash -h logstash --network host -v /vagrant/config/lo
 
 curl localhost:9200/_cat/indices
 curl -XGET localhost:9200/suricata-2019.02.17.04/_settings
-curl -XPUT 192.168.10.11:9200/suricata-2019.02.17.04/_settings -H 'Content-Type: application/json' -d '{"settings":{"index":{"number_of_replicas":"0"}}}'
+
 curl localhost:9200/_cat/indices
