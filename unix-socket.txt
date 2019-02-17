@@ -4,5 +4,9 @@ unix-command:
   enabled: auto
   filename: /var/run/suricata/suricata.socket  
   
-  
+  mkdir /vagrant/data/log/pcap
   sudo /home/vagrant/suricata/basic/bin/suricatasc /var/run/suricata/suricata.socket
+pcap-file /vagrant/data/test-out.pcap /vagrant/data/log/pcap/
+
+sudo /home/vagrant/suricata/basic/bin/suricatasc /var/run/suricata/suricata.socket -c "reload-rules"
+sudo /home/vagrant/suricata/basic/bin/suricatasc /var/run/suricata/suricata.socket -c "pcap-file /vagrant/data/test-out.pcap /vagrant/data/log/pcap/"
