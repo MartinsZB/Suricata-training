@@ -1,0 +1,18 @@
+source ./bin/activate
+python manage.py createsuperuser
+
+ALLOWED_HOSTS = ['192.168.10.11']
+
+python manage.py runserver 192.168.10.11:8000
+
+nohup python manage.py runserver 192.168.10.11:8000 &
+sudo /home/vagrant/suricata/basic/bin/suricata --af-packet -D
+
+CONFIG
+
+rule-files:
+ - default.rules
+ - custom.rules
+ - scirius.rules
+
+
