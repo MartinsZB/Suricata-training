@@ -3,3 +3,80 @@ docker run -tid --name elasticsearch -h elasticsearch --network host -e "discove
 curl localhost:9200/_cat/health
 curl localhost:9200/_cat/indices
 
+curl -s -XPUT localhost:9200/_template/default   -H'Content-Type: application/json' -d '
+{
+ "order" : 0,
+ "version" : 0,
+ "index_patterns" : "*",
+ "settings" : {
+   "index" : {
+     "refresh_interval" : "1s",
+     "number_of_shards" : 3,
+     "number_of_replicas" : 0
+   }
+ }, "mappings" : {
+    "_default_" : {
+      "dynamic_templates" : [ {
+        "message_field" : {
+          "path_match" : "message",
+          "match_mapping_type" : "string",
+          "mapping" : {
+            "type" : "text",
+            "norms" : false
+          }
+        }
+      }, {
+        "string_fields" : {
+          "match" : "*",
+          "match_mapping_type" : "string",
+          "mapping" : {
+            "type" : "text", "norms" : false,
+            "fields" : {
+              "keyword" : { "type": "keyword", "ignore_above": 256 }
+            }
+          }
+        }
+      } ],
+      "properties" : {
+        "@timestamp": { "type": "date"},
+        "@version": { "type": "keyword"},
+        "geoip"  : {
+          "dynamic": true,
+          "properties" : {
+            "ip": { "type": "ip" },
+            "location" : { "type" : "geo_point" },
+            "latitude" : { "type" : "half_float" },
+            "longitude" : { "type" : "half_float" }
+          }
+        }
+      }
+    }
+  }
+}
+'
+
+curl -s -XPUT localhost:9200/_template/suricata   -H 'Content-Type: application/json' -d '
+{
+  "order": 10,
+  "version": 0,
+  "index_patterns": "suricata-*",
+  "mappings":{
+    "doc": {
+      "properties": {
+        "src_ip": { 
+          "type": "ip",
+          "fields": {
+            "keyword" : { "type": "keyword", "ignore_above": 256 }
+          }
+        },
+        "dest_ip": { 
+          "type": "ip",
+          "fields": {
+            "keyword" : { "type": "keyword", "ignore_above": 256 }
+          }
+        }
+      }
+    }
+  }
+}
+'
