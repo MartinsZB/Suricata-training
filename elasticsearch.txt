@@ -1,0 +1,1 @@
+docker run -ti --name elasticsearch --network host "discovery.type=single-node" -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" -e "cluster.name=kav" docker.elastic.co/elasticsearch/elasticsearch-oss:6.6.0
